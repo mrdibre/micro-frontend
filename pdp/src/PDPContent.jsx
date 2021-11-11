@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 import { getProductById, currency } from "home/products";
 
 const PDPContent = () => {
-  const id = 1;
   const [product, setProduct] = useState(null);
+
+  const { id } = useParams();
 
   useEffect(() => {
     if (id) {
@@ -12,9 +14,9 @@ const PDPContent = () => {
     } else {
       setProduct(null);
     }
-  }, []);
+  }, [id]);
 
-  if (!product) return null;
+  if (!product) return <div>OPa</div>;
 
   return (
     <div className="grid grid-cols-2 gap-5">
@@ -35,4 +37,4 @@ const PDPContent = () => {
   )
 };
 
-export { PDPContent };
+export default PDPContent;

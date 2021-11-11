@@ -1,29 +1,38 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 import "./index.scss";
-import { PDPContent } from "./PDPContent";
 
 const Header = React.lazy(() => import("home/Header"));
 const Footer = React.lazy(() => import("home/Footer"));
-import SafeComponent from "./SafeComponent";
+import PDPContent from "./PDPContent";
 
 const App = () => (
-  <div className="text-3xl mx-auto max-w-6xl">
-    <SafeComponent>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Header app={{ name: "Product Detail" }} />
-      </Suspense>
-    </SafeComponent>
-    <div className="my-10 ">
-      <PDPContent />
+  <Router>
+    <div className="text-3xl mx-auto max-w-6xl">
+        <Suspense fallback={<div>Loading...</div>}>
+          <Header app={{ name: "Product Detail" }} />
+        </Suspense>
+      <div className="my-10 ">
+        <Switch>
+          <Route path="/product/:id">
+            <PDPContent />
+          </Route>
+          <Route path="*">
+            <p>Not Found</p>
+          </Route>
+        </Switch>
+      </div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Footer />
+        </Suspense>
     </div>
-    <SafeComponent>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Footer />
-      </Suspense>
-    </SafeComponent>
-  </div>
+  </Router>
 );
 
 ReactDOM.render(<App />, document.getElementById("app"));
