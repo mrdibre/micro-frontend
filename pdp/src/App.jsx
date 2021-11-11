@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 
 import "./index.scss";
+import { PDPContent } from "./PDPContent";
 
 const Header = React.lazy(() => import("home/Header"));
 const Footer = React.lazy(() => import("home/Footer"));
@@ -15,7 +16,7 @@ const App = () => (
       </Suspense>
     </SafeComponent>
     <div className="my-10 ">
-      Home Page Content
+      <PDPContent />
     </div>
     <SafeComponent>
       <Suspense fallback={<div>Loading...</div>}>
